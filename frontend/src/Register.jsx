@@ -8,15 +8,18 @@ function Register() {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            // Connexion au Backend Spring Boot sur le port 8080
-            const response = await axios.post('http://localhost:8080/api/auth/register', {
+            // On envoie un objet tout simple
+            await axios.post("http://localhost:8080/api/auth/register", {
                 email: email,
                 password: password
             });
-            alert(response.data); // Affiche "Utilisateur enregistré avec succès !"
+            alert("Succès ! Tu es enregistré.");
         } catch (error) {
-            alert("Erreur : " + (error.response?.data || "Serveur injoignable"));
+            // Si ça rate, on affiche le texte exact du serveur
+            console.log(error.response.data);
+            alert("Erreur : " + JSON.stringify(error.response.data));
         }
+
     };
 
     return (
